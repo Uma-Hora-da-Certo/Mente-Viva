@@ -1,0 +1,19 @@
+{
+  "name": "mente-viva",
+  "version": "1.0.0",
+  "description": "**Instituição:** Lar dos Idosos, São Francisco do Sul – SC  \r **Grupo:** Uma Hora de Certo  \r **Integrantes:** Cauê Fernandes, Luiz Passos, João Ziem e Walter Theodoro",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Uma-Hora-da-Certo/Mente-Viva.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Uma-Hora-da-Certo/Mente-Viva/issues"
+  },
+  "homepage": "https://github.com/Uma-Hora-da-Certo/Mente-Viva#readme"
+}
