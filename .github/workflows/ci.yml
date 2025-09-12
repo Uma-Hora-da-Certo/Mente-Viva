@@ -1,0 +1,30 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+    branches: [main, dev]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v3
+
+      - name: Instalar dependências
+        run: npm install
+
+      - name: Verificação de sintaxe e lint
+        run: npm run lint
+
+      - name: Executar testes
+        run: npm test
+
+      - name: Build do projeto
+        run: npm run build
+
+      - name: Verificação de segurança
+        run: npm audit --audit-level=moderate
