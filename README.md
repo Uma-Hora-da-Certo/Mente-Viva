@@ -1,49 +1,69 @@
-# Mente Viva – Sistema de Jogos Interativos para Idosos
+# React + TypeScript + Vite
 
-**Instituição:** Lar dos Idosos, São Francisco do Sul – SC  
-**Grupo:** Uma Hora de Certo  
-**Integrantes:** Cauê Fernandes, Luiz Passos, João Ziem e Walter Theodoro
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
----
+Currently, two official plugins are available:
 
-## Objetivo
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-Desenvolver uma plataforma digital com jogos interativos voltados para **idosos residentes em asilos**, promovendo:
+## Expanding the ESLint configuration
 
-- Estímulo cognitivo  
-- Entretenimento  
-- Bem-estar emocional  
+If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
-O sistema será **acessível, intuitivo e adaptado às necessidades motoras e cognitivas** da terceira idade.
+```js
+export default tseslint.config([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
 
----
+      // Remove tseslint.configs.recommended and replace with this
+      ...tseslint.configs.recommendedTypeChecked,
+      // Alternatively, use this for stricter rules
+      ...tseslint.configs.strictTypeChecked,
+      // Optionally, add this for stylistic rules
+      ...tseslint.configs.stylisticTypeChecked,
 
-## Descrição do Sistema
+      // Other configs...
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
+```
 
-A plataforma contém **cinco jogos principais**, projetados com base em estudos sobre estimulação cognitiva para idosos.
+You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
-### Jogos Disponíveis
+```js
+// eslint.config.js
+import reactX from 'eslint-plugin-react-x'
+import reactDom from 'eslint-plugin-react-dom'
 
-#### 1. Jogo da Memória (Pareamento de Cartas)
-- **Funcionamento:** Encontre pares de cartas iguais.
-- **Benefícios:** Memória visual, concentração, paciência.
-- **Dificuldade:** Ajustável pela quantidade de cartas.
-
-#### 2. Caça-Palavras Online
-- **Funcionamento:** Encontre palavras ocultas em uma grade de letras.
-- **Benefícios:** Atenção, vocabulário, memória.
-- **Temas:** Nostálgicos – músicas, culinária, festas.
-
-#### 3. Pintura/Colorir Digital
-- **Funcionamento:** O usuário seleciona cores para preencher desenhos.
-- **Benefícios:** Coordenação motora, criatividade, relaxamento.
-- **Interface:** Botões grandes e cores vivas.
-
-#### 4. Quiz de Perguntas e Respostas
-- **Funcionamento:** Perguntas com múltiplas alternativas.
-- **Temas:** Cultura dos anos 50–70, novelas, culinária.
-- **Benefícios:** Memória de longo prazo, autoestima, atenção.
-
-#### 5. Quebra-Cabeça Digital (Puzzle)
-- **Funcionamento:** Monte imagens arrastando peças.
-- **Benefícios:** Percepção visual, raciocínio espacial, paciência.
+export default tseslint.config([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+      // Enable lint rules for React
+      reactX.configs['recommended-typescript'],
+      // Enable lint rules for React DOM
+      reactDom.configs.recommended,
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
+```
