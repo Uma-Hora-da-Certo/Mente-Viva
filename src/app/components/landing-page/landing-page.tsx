@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import {
   Brain,
   Heart,
@@ -38,21 +40,22 @@ export default function LandingPage() {
             <div className="flex flex-col justify-center">
               <Badge className="mb-6 w-fit" variant="secondary">
                 <Sparkles className="mr-1 size-3" />
-                Cuidado profissional com você
+                Jogos para a terceira idade
               </Badge>
 
               <h1 className="mb-6 text-balance text-4xl font-bold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
-                Transforme sua saúde mental com apoio especializado
+                Estimule a mente com jogos divertidos e acessíveis
               </h1>
 
               <p className="mb-8 text-pretty text-lg text-muted-foreground sm:text-xl">
-                Oferecemos acompanhamento psicológico personalizado para ajudar
-                você a viver com mais equilíbrio, clareza e bem-estar emocional.
+                Plataforma digital com jogos interativos especialmente
+                desenvolvidos para idosos, promovendo estímulo cognitivo,
+                entretenimento e bem-estar de forma simples e divertida.
               </p>
 
               <div className="flex flex-col gap-4 sm:flex-row">
                 <Button size="lg" className="gap-2">
-                  Começar Agora
+                  Experimentar Jogos
                   <ArrowRight className="size-4" />
                 </Button>
                 <Button size="lg" variant="outline">
@@ -62,23 +65,21 @@ export default function LandingPage() {
 
               <div className="mt-12 flex flex-wrap items-center gap-8">
                 <div>
-                  <div className="text-3xl font-bold text-primary">500+</div>
+                  <div className="text-3xl font-bold text-primary">5</div>
                   <div className="text-sm text-muted-foreground">
-                    Pacientes atendidos
+                    Jogos disponíveis
                   </div>
                 </div>
                 <Separator orientation="vertical" className="h-12" />
                 <div>
-                  <div className="text-3xl font-bold text-primary">15+</div>
-                  <div className="text-sm text-muted-foreground">
-                    Anos de experiência
-                  </div>
+                  <div className="text-3xl font-bold text-primary">100%</div>
+                  <div className="text-sm text-muted-foreground">Gratuito</div>
                 </div>
                 <Separator orientation="vertical" className="h-12" />
                 <div>
-                  <div className="text-3xl font-bold text-primary">98%</div>
+                  <div className="text-3xl font-bold text-primary">Fácil</div>
                   <div className="text-sm text-muted-foreground">
-                    Satisfação
+                    Todas as idades
                   </div>
                 </div>
               </div>
@@ -87,9 +88,11 @@ export default function LandingPage() {
             <div className="relative flex items-center justify-center">
               <div className="relative aspect-square w-full max-w-lg">
                 <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-primary/20 to-accent/40" />
-                <img
-                  src="/peaceful-person-meditating-in-nature-mental-wellne.jpg"
-                  alt="Bem-estar mental"
+                <Image
+                  width={512}
+                  height={512}
+                  src="/images/foto-hero.jpg"
+                  alt="Idosos jogando e se divertindo"
                   className="relative z-10 h-full w-full rounded-3xl object-cover shadow-2xl"
                 />
               </div>
@@ -98,19 +101,19 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Services Section */}
-      <section id="servicos" className="py-20 sm:py-32">
+      {/* Benefits Section */}
+      <section id="beneficios" className="py-20 sm:py-32">
         <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mb-16 text-center">
             <Badge className="mb-4" variant="secondary">
-              Nossos Serviços
+              Benefícios
             </Badge>
             <h2 className="mb-4 text-balance text-3xl font-bold sm:text-4xl lg:text-5xl">
-              Como podemos ajudar você
+              Por que jogar faz bem para a mente
             </h2>
             <p className="mx-auto max-w-2xl text-pretty text-lg text-muted-foreground">
-              Oferecemos uma variedade de serviços especializados para atender
-              suas necessidades de saúde mental
+              Nossos jogos foram desenvolvidos para proporcionar estímulo
+              cognitivo e bem-estar emocional
             </p>
           </div>
 
@@ -120,25 +123,25 @@ export default function LandingPage() {
                 <div className="mb-4 flex size-12 items-center justify-center rounded-lg bg-primary/10">
                   <Brain className="size-6 text-primary" />
                 </div>
-                <CardTitle>Terapia Individual</CardTitle>
+                <CardTitle>Estimulação Cognitiva</CardTitle>
                 <CardDescription>
-                  Sessões personalizadas focadas em suas necessidades
-                  específicas e objetivos pessoais
+                  Exercite memória, atenção e raciocínio de forma natural e
+                  divertida
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <ul className="space-y-2 text-sm">
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-primary" />
-                    <span>Atendimento presencial ou online</span>
+                    <span>Melhora da memória</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-primary" />
-                    <span>Abordagem humanizada</span>
+                    <span>Aumento da concentração</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-primary" />
-                    <span>Horários flexíveis</span>
+                    <span>Raciocínio mais ágil</span>
                   </li>
                 </ul>
               </CardContent>
@@ -149,25 +152,25 @@ export default function LandingPage() {
                 <div className="mb-4 flex size-12 items-center justify-center rounded-lg bg-primary/10">
                   <Users className="size-6 text-primary" />
                 </div>
-                <CardTitle>Terapia de Casal</CardTitle>
+                <CardTitle>Socialização</CardTitle>
                 <CardDescription>
-                  Fortaleça seu relacionamento com comunicação efetiva e
-                  resolução de conflitos
+                  Compartilhe momentos divertidos e crie conexões através dos
+                  jogos
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <ul className="space-y-2 text-sm">
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-primary" />
-                    <span>Melhore a comunicação</span>
+                    <span>Interação social</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-primary" />
-                    <span>Resolva conflitos de forma saudável</span>
+                    <span>Redução do isolamento</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-primary" />
-                    <span>Fortaleça vínculos</span>
+                    <span>Momentos de alegria</span>
                   </li>
                 </ul>
               </CardContent>
@@ -178,25 +181,25 @@ export default function LandingPage() {
                 <div className="mb-4 flex size-12 items-center justify-center rounded-lg bg-primary/10">
                   <Heart className="size-6 text-primary" />
                 </div>
-                <CardTitle>Gestão de Ansiedade</CardTitle>
+                <CardTitle>Bem-Estar Emocional</CardTitle>
                 <CardDescription>
-                  Técnicas comprovadas para controlar a ansiedade e recuperar
-                  sua paz interior
+                  Promova autoestima, relaxamento e qualidade de vida através do
+                  entretenimento
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <ul className="space-y-2 text-sm">
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-primary" />
-                    <span>Técnicas de relaxamento</span>
+                    <span>Redução do estresse</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-primary" />
-                    <span>Mindfulness e meditação</span>
+                    <span>Aumento da autoestima</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-primary" />
-                    <span>Estratégias práticas</span>
+                    <span>Sensação de realização</span>
                   </li>
                 </ul>
               </CardContent>
@@ -445,9 +448,11 @@ export default function LandingPage() {
         <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
             <div className="relative">
-              <img
-                src="/professional-psychologist-in-modern-office.jpg"
-                alt="Sobre nós"
+              <Image
+                width={500}
+                height={300}
+                src="/images/idosa-celular.jpg"
+                alt="Idosos se divertindo com jogos"
                 className="h-full w-full rounded-2xl object-cover shadow-xl"
               />
             </div>
@@ -457,18 +462,18 @@ export default function LandingPage() {
                 Sobre Nós
               </Badge>
               <h2 className="mb-6 text-balance text-3xl font-bold sm:text-4xl lg:text-5xl">
-                Cuidado profissional que transforma vidas
+                Tecnologia a serviço da terceira idade
               </h2>
               <p className="mb-6 text-pretty text-lg text-muted-foreground">
-                Na Mente Viva, acreditamos que todos merecem viver com saúde
-                mental plena. Nossa equipe de psicólogos especializados está
-                comprometida em oferecer um espaço seguro e acolhedor para sua
-                jornada de autoconhecimento e crescimento.
+                O Mente Viva é uma plataforma digital desenvolvida especialmente
+                para idosos em asilos e casas de repouso. Nosso objetivo é
+                proporcionar entretenimento de qualidade e estímulo cognitivo
+                através de jogos acessíveis e divertidos.
               </p>
               <p className="mb-8 text-pretty text-lg text-muted-foreground">
-                Com mais de 15 anos de experiência, utilizamos abordagens
-                baseadas em evidências científicas, sempre respeitando a
-                individualidade de cada pessoa.
+                Acreditamos que a tecnologia pode melhorar a qualidade de vida
+                da terceira idade, oferecendo atividades que exercitam a mente,
+                promovem socialização e trazem alegria ao dia a dia.
               </p>
 
               <div className="space-y-4">
@@ -477,11 +482,10 @@ export default function LandingPage() {
                     <CheckCircle2 className="size-5 text-primary" />
                   </div>
                   <div>
-                    <h3 className="mb-1 font-semibold">
-                      Profissionais Qualificados
-                    </h3>
+                    <h3 className="mb-1 font-semibold">Interface Acessível</h3>
                     <p className="text-sm text-muted-foreground">
-                      Equipe com formação especializada e registro no CRP
+                      Botões grandes, cores contrastantes e navegação
+                      simplificada
                     </p>
                   </div>
                 </div>
@@ -491,11 +495,9 @@ export default function LandingPage() {
                     <CheckCircle2 className="size-5 text-primary" />
                   </div>
                   <div>
-                    <h3 className="mb-1 font-semibold">
-                      Atendimento Humanizado
-                    </h3>
+                    <h3 className="mb-1 font-semibold">Conteúdo Nostálgico</h3>
                     <p className="text-sm text-muted-foreground">
-                      Acolhimento e respeito em cada sessão
+                      Temas e referências culturais familiares à terceira idade
                     </p>
                   </div>
                 </div>
@@ -505,11 +507,9 @@ export default function LandingPage() {
                     <CheckCircle2 className="size-5 text-primary" />
                   </div>
                   <div>
-                    <h3 className="mb-1 font-semibold">
-                      Resultados Comprovados
-                    </h3>
+                    <h3 className="mb-1 font-semibold">Totalmente Gratuito</h3>
                     <p className="text-sm text-muted-foreground">
-                      98% de satisfação dos nossos pacientes
+                      Acesso livre a todos os jogos e funcionalidades
                     </p>
                   </div>
                 </div>
