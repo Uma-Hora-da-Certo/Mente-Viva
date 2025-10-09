@@ -47,3 +47,21 @@ A plataforma contém **cinco jogos principais**, projetados com base em estudos 
 #### 5. Quebra-Cabeça Digital (Puzzle)
 - **Funcionamento:** Monte imagens arrastando peças.
 - **Benefícios:** Percepção visual, raciocínio espacial, paciência.
+
+---
+
+## Como rodar
+
+Clonar repositorio
+```https://github.com/Uma-Hora-da-Certo/Mente-Viva.git```
+
+Entrar na pasta
+```cd mente-viva```
+
+Baixar dependencias
+```npm install```
+
+Rodar servidor
+```npm run dev```
+
+
