@@ -1,7 +1,7 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ArrowLeft } from "lucide-react"
-import { SlidingPuzzle } from "@/components/quebra-cabeca"
+import { SlidingPuzzle } from "@/components/jogos/quebra-cabeca"
 
 export default function PuzzlePage() {
   return (

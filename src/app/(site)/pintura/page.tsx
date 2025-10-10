@@ -1,7 +1,7 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ArrowLeft } from "lucide-react"
-import { DrawingCanvas } from "@/components/pintura"
+import { DrawingCanvas } from "@/components/jogos/pintura"
 
 export default function PinturaPage() {
   return (

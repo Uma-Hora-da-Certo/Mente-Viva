@@ -1,7 +1,7 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ArrowLeft } from "lucide-react"
-import { QuizGame } from "@/components/quiz"
+import { QuizGame } from "@/components/jogos/quiz"
 
 export default function QuizPage() {
   return (

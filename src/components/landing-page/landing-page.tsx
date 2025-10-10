@@ -15,7 +15,7 @@ import {
   Grid3x3,
 } from "lucide-react"
 import { Footer } from "../footer"
-import { LPHeader } from "./header"
+import { LPHeader } from "../header"
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
