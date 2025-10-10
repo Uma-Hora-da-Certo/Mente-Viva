@@ -83,7 +83,7 @@ export default function LandingPage() {
                 <Image
                   width={512}
                   height={512}
-                  src="/elderly-woman-using-tablet-with-plants-in-backgrou.jpg"
+                  src="/images/foto-hero.jpg"
                   alt="Idosos jogando e se divertindo"
                   className="relative z-10 h-full w-full rounded-3xl object-cover shadow-2xl"
                 />
