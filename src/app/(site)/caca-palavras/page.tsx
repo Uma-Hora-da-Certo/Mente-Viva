@@ -1,7 +1,7 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ArrowLeft } from "lucide-react"
-import { WordSearchGame } from "@/components/caca-palavras"
+import { WordSearchGame } from "@/components/jogos/caca-palavras"
 
 export default function CacaPalavrasPage() {
   return (

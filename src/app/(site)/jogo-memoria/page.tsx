@@ -1,4 +1,4 @@
-import { MemoryGame } from "@/components/jogo-memoria"
+import { MemoryGame } from "@/components/jogos/jogo-memoria"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ArrowLeft } from "lucide-react"
