@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { ArrowLeft } from "lucide-react"
 
 const games = [
   {
@@ -8,35 +9,35 @@ const games = [
     name: "Jogo da Memória",
     emoji: "🧠",
     description: "Encontre os pares de cartas iguais",
-    route: "/jogos/memoria",
+    route: "/jogo-memoria",
   },
   {
     id: "cacapalavras",
     name: "Caça-Palavras",
     emoji: "🔤",
     description: "Encontre palavras escondidas no tabuleiro",
-    route: "/jogos/cacapalavras",
+    route: "/caca-palavras",
   },
   {
     id: "pintura",
     name: "Pintura Digital",
     emoji: "🎨",
     description: "Solte sua criatividade com cores",
-    route: "/jogos/pintura",
+    route: "/pintura",
   },
   {
     id: "quiz",
     name: "Quiz Nostálgico",
     emoji: "❓",
     description: "Teste seus conhecimentos sobre o passado",
-    route: "/jogos/quiz",
+    route: "/quiz",
   },
   {
     id: "puzzle",
     name: "Quebra-Cabeça",
     emoji: "🧩",
     description: "Monte a imagem completa",
-    route: "/jogos/puzzle",
+    route: "/quebra-cabeca",
   },
 ]
 
@@ -44,6 +45,15 @@ export default function JogosPage() {
   return (
     <main className="min-h-screen p-6 md:p-12">
       <div className="max-w-7xl mx-auto space-y-8">
+        <div className="flex justify-start">
+          <Button asChild variant="outline" size="lg" className="gap-2 text-lg bg-transparent">
+            <Link href="/">
+              <ArrowLeft className="h-5 w-5" />
+              Voltar para Início
+            </Link>
+          </Button>
+        </div>
+
         <div className="text-center space-y-3">
           <h1 className="text-4xl md:text-6xl font-bold text-primary">Mente Viva 💭</h1>
           <p className="text-xl md:text-2xl text-muted-foreground">Escolha um dos jogos e divirta-se!</p>
