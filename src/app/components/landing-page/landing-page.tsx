@@ -1,4 +1,5 @@
-import Image from "next/image";
+import Image from "next/image"
+import Link from "next/link"
 
 import {
   Brain,
@@ -12,20 +13,14 @@ import {
   MessageSquare,
   Puzzle,
   Grid3x3,
-} from "lucide-react";
-import { Footer } from "../footer";
-import { LPHeader } from "./header";
+} from "lucide-react"
+import { Footer } from "../footer"
+import { LPHeader } from "./header"
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import { Separator } from "@/components/ui/separator"
 
 export default function LandingPage() {
   return (
@@ -48,16 +43,17 @@ export default function LandingPage() {
               </h1>
 
               <p className="mb-8 text-pretty text-lg text-muted-foreground sm:text-xl">
-                Plataforma digital com jogos interativos especialmente
-                desenvolvidos para idosos, promovendo estímulo cognitivo,
-                entretenimento e bem-estar de forma simples e divertida.
+                Plataforma digital com jogos interativos especialmente desenvolvidos para idosos, promovendo estímulo
+                cognitivo, entretenimento e bem-estar de forma simples e divertida.
               </p>
 
               <div className="flex flex-col gap-4 sm:flex-row">
-                <Button size="lg" className="gap-2">
-                  Experimentar Jogos
-                  <ArrowRight className="size-4" />
-                </Button>
+                <Link href="/jogos">
+                  <Button size="lg" className="gap-2">
+                    Experimentar Jogos
+                    <ArrowRight className="size-4" />
+                  </Button>
+                </Link>
                 <Button size="lg" variant="outline">
                   Saiba Mais
                 </Button>
@@ -66,9 +62,7 @@ export default function LandingPage() {
               <div className="mt-12 flex flex-wrap items-center gap-8">
                 <div>
                   <div className="text-3xl font-bold text-primary">5</div>
-                  <div className="text-sm text-muted-foreground">
-                    Jogos disponíveis
-                  </div>
+                  <div className="text-sm text-muted-foreground">Jogos disponíveis</div>
                 </div>
                 <Separator orientation="vertical" className="h-12" />
                 <div>
@@ -78,9 +72,7 @@ export default function LandingPage() {
                 <Separator orientation="vertical" className="h-12" />
                 <div>
                   <div className="text-3xl font-bold text-primary">Fácil</div>
-                  <div className="text-sm text-muted-foreground">
-                    Todas as idades
-                  </div>
+                  <div className="text-sm text-muted-foreground">Todas as idades</div>
                 </div>
               </div>
             </div>
@@ -91,7 +83,7 @@ export default function LandingPage() {
                 <Image
                   width={512}
                   height={512}
-                  src="/images/foto-hero.jpg"
+                  src="/elderly-woman-using-tablet-with-plants-in-backgrou.jpg"
                   alt="Idosos jogando e se divertindo"
                   className="relative z-10 h-full w-full rounded-3xl object-cover shadow-2xl"
                 />
@@ -112,8 +104,7 @@ export default function LandingPage() {
               Por que jogar faz bem para a mente
             </h2>
             <p className="mx-auto max-w-2xl text-pretty text-lg text-muted-foreground">
-              Nossos jogos foram desenvolvidos para proporcionar estímulo
-              cognitivo e bem-estar emocional
+              Nossos jogos foram desenvolvidos para proporcionar estímulo cognitivo e bem-estar emocional
             </p>
           </div>
 
@@ -124,10 +115,7 @@ export default function LandingPage() {
                   <Brain className="size-6 text-primary" />
                 </div>
                 <CardTitle>Estimulação Cognitiva</CardTitle>
-                <CardDescription>
-                  Exercite memória, atenção e raciocínio de forma natural e
-                  divertida
-                </CardDescription>
+                <CardDescription>Exercite memória, atenção e raciocínio de forma natural e divertida</CardDescription>
               </CardHeader>
               <CardContent>
                 <ul className="space-y-2 text-sm">
@@ -153,10 +141,7 @@ export default function LandingPage() {
                   <Users className="size-6 text-primary" />
                 </div>
                 <CardTitle>Socialização</CardTitle>
-                <CardDescription>
-                  Compartilhe momentos divertidos e crie conexões através dos
-                  jogos
-                </CardDescription>
+                <CardDescription>Compartilhe momentos divertidos e crie conexões através dos jogos</CardDescription>
               </CardHeader>
               <CardContent>
                 <ul className="space-y-2 text-sm">
@@ -183,8 +168,7 @@ export default function LandingPage() {
                 </div>
                 <CardTitle>Bem-Estar Emocional</CardTitle>
                 <CardDescription>
-                  Promova autoestima, relaxamento e qualidade de vida através do
-                  entretenimento
+                  Promova autoestima, relaxamento e qualidade de vida através do entretenimento
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -220,8 +204,8 @@ export default function LandingPage() {
               Estimule a mente de forma divertida
             </h2>
             <p className="mx-auto max-w-2xl text-pretty text-lg text-muted-foreground">
-              Plataforma digital com jogos adaptados para idosos, promovendo
-              estímulo cognitivo, entretenimento e bem-estar emocional
+              Plataforma digital com jogos adaptados para idosos, promovendo estímulo cognitivo, entretenimento e
+              bem-estar emocional
             </p>
           </div>
 
@@ -232,9 +216,7 @@ export default function LandingPage() {
                   <Grid3x3 className="size-6 text-primary" />
                 </div>
                 <CardTitle>Jogo da Memória</CardTitle>
-                <CardDescription>
-                  Encontre pares de cartas iguais e exercite sua memória visual
-                </CardDescription>
+                <CardDescription>Encontre pares de cartas iguais e exercite sua memória visual</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="mb-4">
@@ -267,8 +249,7 @@ export default function LandingPage() {
                 </div>
                 <CardTitle>Caça-Palavras</CardTitle>
                 <CardDescription>
-                  Encontre palavras ocultas em uma grade de letras com temas
-                  nostálgicos
+                  Encontre palavras ocultas em uma grade de letras com temas nostálgicos
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -301,10 +282,7 @@ export default function LandingPage() {
                   <Palette className="size-6 text-primary" />
                 </div>
                 <CardTitle>Pintura Digital</CardTitle>
-                <CardDescription>
-                  Selecione cores e preencha desenhos de forma criativa e
-                  relaxante
-                </CardDescription>
+                <CardDescription>Selecione cores e preencha desenhos de forma criativa e relaxante</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="mb-4">
@@ -337,8 +315,7 @@ export default function LandingPage() {
                 </div>
                 <CardTitle>Quiz Cultural</CardTitle>
                 <CardDescription>
-                  Perguntas e respostas sobre cultura dos anos 50-70, novelas e
-                  culinária
+                  Perguntas e respostas sobre cultura dos anos 50-70, novelas e culinária
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -371,10 +348,7 @@ export default function LandingPage() {
                   <Puzzle className="size-6 text-primary" />
                 </div>
                 <CardTitle>Quebra-Cabeça</CardTitle>
-                <CardDescription>
-                  Monte imagens arrastando peças e exercite o raciocínio
-                  espacial
-                </CardDescription>
+                <CardDescription>Monte imagens arrastando peças e exercite o raciocínio espacial</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="mb-4">
@@ -407,8 +381,7 @@ export default function LandingPage() {
                 </div>
                 <CardTitle>Plataforma Completa</CardTitle>
                 <CardDescription>
-                  Sistema acessível e intuitivo adaptado às necessidades da
-                  terceira idade
+                  Sistema acessível e intuitivo adaptado às necessidades da terceira idade
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -435,10 +408,12 @@ export default function LandingPage() {
           </div>
 
           <div className="mt-12 text-center">
-            <Button size="lg" className="gap-2">
-              Experimentar Jogos
-              <ArrowRight className="size-4" />
-            </Button>
+            <Link href="/jogos">
+              <Button size="lg" className="gap-2">
+                Experimentar Jogos
+                <ArrowRight className="size-4" />
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
@@ -451,7 +426,7 @@ export default function LandingPage() {
               <Image
                 width={500}
                 height={300}
-                src="/images/idosa-celular.jpg"
+                src="/elderly-people-having-fun-with-digital-games.jpg"
                 alt="Idosos se divertindo com jogos"
                 className="h-full w-full rounded-2xl object-cover shadow-xl"
               />
@@ -465,15 +440,13 @@ export default function LandingPage() {
                 Tecnologia a serviço da terceira idade
               </h2>
               <p className="mb-6 text-pretty text-lg text-muted-foreground">
-                O Mente Viva é uma plataforma digital desenvolvida especialmente
-                para idosos em asilos e casas de repouso. Nosso objetivo é
-                proporcionar entretenimento de qualidade e estímulo cognitivo
-                através de jogos acessíveis e divertidos.
+                O Mente Viva é uma plataforma digital desenvolvida especialmente para idosos em asilos e casas de
+                repouso. Nosso objetivo é proporcionar entretenimento de qualidade e estímulo cognitivo através de jogos
+                acessíveis e divertidos.
               </p>
               <p className="mb-8 text-pretty text-lg text-muted-foreground">
-                Acreditamos que a tecnologia pode melhorar a qualidade de vida
-                da terceira idade, oferecendo atividades que exercitam a mente,
-                promovem socialização e trazem alegria ao dia a dia.
+                Acreditamos que a tecnologia pode melhorar a qualidade de vida da terceira idade, oferecendo atividades
+                que exercitam a mente, promovem socialização e trazem alegria ao dia a dia.
               </p>
 
               <div className="space-y-4">
@@ -484,8 +457,7 @@ export default function LandingPage() {
                   <div>
                     <h3 className="mb-1 font-semibold">Interface Acessível</h3>
                     <p className="text-sm text-muted-foreground">
-                      Botões grandes, cores contrastantes e navegação
-                      simplificada
+                      Botões grandes, cores contrastantes e navegação simplificada
                     </p>
                   </div>
                 </div>
@@ -508,9 +480,7 @@ export default function LandingPage() {
                   </div>
                   <div>
                     <h3 className="mb-1 font-semibold">Totalmente Gratuito</h3>
-                    <p className="text-sm text-muted-foreground">
-                      Acesso livre a todos os jogos e funcionalidades
-                    </p>
+                    <p className="text-sm text-muted-foreground">Acesso livre a todos os jogos e funcionalidades</p>
                   </div>
                 </div>
               </div>
@@ -529,14 +499,16 @@ export default function LandingPage() {
                   Pronto para começar sua jogatina?
                 </h2>
                 <p className="mb-8 text-pretty text-lg opacity-90 sm:text-xl">
-                  Comece agora e descubra como os jogos podem trazer mais
-                  diversão, memória afiada e bem-estar ao seu dia a dia!
+                  Comece agora e descubra como os jogos podem trazer mais diversão, memória afiada e bem-estar ao seu
+                  dia a dia!
                 </p>
                 <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
-                  <Button size="lg" variant="secondary" className="gap-2">
-                    Jogar agora
-                    <ArrowRight className="size-4" />
-                  </Button>
+                  <Link href="/jogos">
+                    <Button size="lg" variant="secondary" className="gap-2">
+                      Jogar agora
+                      <ArrowRight className="size-4" />
+                    </Button>
+                  </Link>
                   <Button
                     size="lg"
                     variant="outline"
@@ -553,5 +525,5 @@ export default function LandingPage() {
 
       <Footer />
     </div>
-  );
+  )
 }

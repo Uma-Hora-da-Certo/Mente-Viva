@@ -1,5 +1,6 @@
-import { Button } from "@/components/ui/button";
-import { Brain } from "lucide-react";
+import { Button } from "@/components/ui/button"
+import { Brain } from "lucide-react"
+import Link from "next/link"
 
 export const LPHeader = () => {
   return (
@@ -37,8 +38,10 @@ export const LPHeader = () => {
           </a>
         </nav>
 
-        <Button>JOGAR</Button>
+        <Link href="/jogos">
+          <Button>JOGAR</Button>
+        </Link>
       </div>
     </header>
-  );
-};
+  )
+}
