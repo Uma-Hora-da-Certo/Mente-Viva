@@ -426,7 +426,7 @@ export default function LandingPage() {
               <Image
                 width={500}
                 height={300}
-                src="/elderly-people-having-fun-with-digital-games.jpg"
+                src="/images/idosa-celular.jpg"
                 alt="Idosos se divertindo com jogos"
                 className="h-full w-full rounded-2xl object-cover shadow-xl"
               />
