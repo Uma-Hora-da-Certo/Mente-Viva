@@ -3,19 +3,19 @@ import { supabaseAdmin } from "@/lib/supabaseServer";
 
 export async function GET(
   req: NextRequest,
-  context: { params: { slug: string } }
+  context: { params: { slug: string } | Promise<{ slug: string }> }
 ) {
-  const { params } = context;
+  const params =
+    "then" in context.params ? await context.params : context.params;
   const slug = params.slug;
   const limit = Number(req.nextUrl.searchParams.get("limit") ?? 10);
   const reverse = req.nextUrl.searchParams.get("reverse") === "true";
 
   try {
-    console.log("Chamando leaderboard", reverse, typeof reverse);
     const { data, error } = await supabaseAdmin.rpc("get_leaderboard", {
       p_game_slug: slug,
       p_limit: limit,
-      p_reverse: reverse ?? false,
+      p_reverse: reverse,
     });
 
     if (error) throw error;
@@ -29,12 +29,13 @@ export async function GET(
     );
   }
 }
-
 export async function POST(
   req: NextRequest,
-  context: { params: { slug: string } }
+  context: { params: { slug: string } | Promise<{ slug: string }> }
 ) {
-  const slug = context.params.slug;
+  const params =
+    "then" in context.params ? await context.params : context.params;
+  const slug = params.slug;
   const body = await req.json();
 
   if (!body || typeof body.score !== "number") {
