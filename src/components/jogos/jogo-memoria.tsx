@@ -1,58 +1,67 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
-import { RotateCcw, Trophy } from "lucide-react"
+import { useState, useEffect } from "react";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { RotateCcw, Trophy } from "lucide-react";
+import { submitScore } from "@/lib/submitScore";
 
 type CardType = {
-  id: number
-  emoji: string
-  isFlipped: boolean
-  isMatched: boolean
-}
+  id: number;
+  emoji: string;
+  isFlipped: boolean;
+  isMatched: boolean;
+};
 
-const emojis = ["🎮", "🎯", "🎨", "🎭", "🎪", "🎸", "🎺", "🎹"]
+const emojis = ["🎮", "🎯", "🎨", "🎭", "🎪", "🎸", "🎺", "🎹"];
 
 export function MemoryGame() {
-  const [cards, setCards] = useState<CardType[]>([])
-  const [flippedCards, setFlippedCards] = useState<number[]>([])
-  const [moves, setMoves] = useState(0)
-  const [matches, setMatches] = useState(0)
-  const [isChecking, setIsChecking] = useState(false)
+  const [cards, setCards] = useState<CardType[]>([]);
+  const [flippedCards, setFlippedCards] = useState<number[]>([]);
+  const [moves, setMoves] = useState(0);
+  const [matches, setMatches] = useState(0);
+  const [isChecking, setIsChecking] = useState(false);
 
   useEffect(() => {
-    initializeGame()
-  }, [])
+    initializeGame();
+  }, []);
 
   useEffect(() => {
     if (flippedCards.length === 2) {
-      setIsChecking(true)
-      const [first, second] = flippedCards
-      const firstCard = cards.find((c) => c.id === first)
-      const secondCard = cards.find((c) => c.id === second)
+      setIsChecking(true);
+      const [first, second] = flippedCards;
+      const firstCard = cards.find((c) => c.id === first);
+      const secondCard = cards.find((c) => c.id === second);
 
       if (firstCard?.emoji === secondCard?.emoji) {
         setTimeout(() => {
           setCards((prev) =>
-            prev.map((card) => (card.id === first || card.id === second ? { ...card, isMatched: true } : card)),
-          )
-          setMatches((prev) => prev + 1)
-          setFlippedCards([])
-          setIsChecking(false)
-        }, 600)
+            prev.map((card) =>
+              card.id === first || card.id === second
+                ? { ...card, isMatched: true }
+                : card
+            )
+          );
+          setMatches((prev) => prev + 1);
+          setFlippedCards([]);
+          setIsChecking(false);
+        }, 600);
       } else {
         setTimeout(() => {
           setCards((prev) =>
-            prev.map((card) => (card.id === first || card.id === second ? { ...card, isFlipped: false } : card)),
-          )
-          setFlippedCards([])
-          setIsChecking(false)
-        }, 1000)
+            prev.map((card) =>
+              card.id === first || card.id === second
+                ? { ...card, isFlipped: false }
+                : card
+            )
+          );
+          setFlippedCards([]);
+          setIsChecking(false);
+        }, 1000);
       }
-      setMoves((prev) => prev + 1)
+      setMoves((prev) => prev + 1);
     }
-  }, [flippedCards, cards])
+  }, [flippedCards, cards]);
 
   const initializeGame = () => {
     const shuffledEmojis = [...emojis, ...emojis]
@@ -62,30 +71,53 @@ export function MemoryGame() {
         emoji,
         isFlipped: false,
         isMatched: false,
-      }))
-    setCards(shuffledEmojis)
-    setFlippedCards([])
-    setMoves(0)
-    setMatches(0)
-    setIsChecking(false)
-  }
+      }));
+    setCards(shuffledEmojis);
+    setFlippedCards([]);
+    setMoves(0);
+    setMatches(0);
+    setIsChecking(false);
+  };
 
   const handleCardClick = (id: number) => {
-    if (isChecking || flippedCards.length === 2) return
-    const card = cards.find((c) => c.id === id)
-    if (card?.isFlipped || card?.isMatched) return
+    if (isChecking || flippedCards.length === 2) return;
+    const card = cards.find((c) => c.id === id);
+    if (card?.isFlipped || card?.isMatched) return;
 
-    setCards((prev) => prev.map((c) => (c.id === id ? { ...c, isFlipped: true } : c)))
-    setFlippedCards((prev) => [...prev, id])
-  }
+    setCards((prev) =>
+      prev.map((c) => (c.id === id ? { ...c, isFlipped: true } : c))
+    );
+    setFlippedCards((prev) => [...prev, id]);
+  };
 
-  const isGameComplete = matches === emojis.length
+  const isGameComplete = matches === emojis.length;
+
+  useEffect(() => {
+    const updateScore = async () => {
+      try {
+        const result = await submitScore("memory-game", {
+          user_id: "user-123",
+          username: "José",
+          score: moves,
+        });
+        console.log("leaderboard updated", result.leaderboard);
+      } catch (err) {
+        console.error("Não foi possível enviar o score", err);
+      }
+    };
+
+    if (isGameComplete) updateScore();
+  }, [isGameComplete, moves]);
 
   return (
     <div className="w-full max-w-2xl mx-auto space-y-6">
       <div className="text-center space-y-2">
-        <h1 className="text-4xl md:text-5xl font-bold text-primary">Jogo da Memória</h1>
-        <p className="text-muted-foreground">Encontre todos os pares de cartas</p>
+        <h1 className="text-4xl md:text-5xl font-bold text-primary">
+          Jogo da Memória
+        </h1>
+        <p className="text-muted-foreground">
+          Encontre todos os pares de cartas
+        </p>
       </div>
 
       <Card className="p-6 space-y-4">
@@ -111,7 +143,9 @@ export function MemoryGame() {
           <div className="bg-primary/10 border-2 border-primary rounded-lg p-4 text-center space-y-2">
             <Trophy className="h-8 w-8 text-primary mx-auto" />
             <p className="font-bold text-lg text-primary">Parabéns!</p>
-            <p className="text-sm text-muted-foreground">Você completou o jogo em {moves} movimentos!</p>
+            <p className="text-sm text-muted-foreground">
+              Você completou o jogo em {moves} movimentos!
+            </p>
           </div>
         )}
 
@@ -126,7 +160,9 @@ export function MemoryGame() {
             >
               <div
                 className={`w-full h-full transition-transform duration-500 relative ${
-                  card.isFlipped || card.isMatched ? "[transform:rotateY(180deg)]" : ""
+                  card.isFlipped || card.isMatched
+                    ? "[transform:rotateY(180deg)]"
+                    : ""
                 }`}
                 style={{ transformStyle: "preserve-3d" }}
               >
@@ -162,5 +198,5 @@ export function MemoryGame() {
         <p>Dificuldade: Médio • 4x4 cartas</p>
       </div>
     </div>
-  )
+  );
 }
