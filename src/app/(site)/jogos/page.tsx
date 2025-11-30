@@ -1,7 +1,16 @@
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { ArrowLeft } from "lucide-react"
+"use client";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { ArrowLeft } from "lucide-react";
+import { useUsername } from "@/hooks/useUsername";
+import AskNameModal from "@/components/AskNameModal";
 
 const games = [
   {
@@ -39,14 +48,23 @@ const games = [
     description: "Monte a imagem completa",
     route: "/quebra-cabeca",
   },
-]
+];
 
 export default function JogosPage() {
+  const { username, loading, saveUsername } = useUsername();
+
   return (
     <main className="min-h-screen p-6 md:p-12">
+      {!username && <AskNameModal onSubmit={saveUsername} />}
+
       <div className="max-w-7xl mx-auto space-y-8">
         <div className="flex justify-start">
-          <Button asChild variant="outline" size="lg" className="gap-2 text-lg bg-transparent">
+          <Button
+            asChild
+            variant="outline"
+            size="lg"
+            className="gap-2 text-lg bg-transparent"
+          >
             <Link href="/">
               <ArrowLeft className="h-5 w-5" />
               Voltar para Início
@@ -55,8 +73,12 @@ export default function JogosPage() {
         </div>
 
         <div className="text-center space-y-3">
-          <h1 className="text-4xl md:text-6xl font-bold text-primary">Mente Viva 💭</h1>
-          <p className="text-xl md:text-2xl text-muted-foreground">Escolha um dos jogos e divirta-se!</p>
+          <h1 className="text-4xl md:text-6xl font-bold text-primary">
+            Mente Viva 💭
+          </h1>
+          <p className="text-xl md:text-2xl text-muted-foreground">
+            Escolha um dos jogos e divirta-se!
+          </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -67,11 +89,19 @@ export default function JogosPage() {
             >
               <CardHeader className="text-center space-y-4 p-6">
                 <div className="text-6xl md:text-7xl">{game.emoji}</div>
-                <CardTitle className="text-2xl md:text-3xl">{game.name}</CardTitle>
-                <CardDescription className="text-lg md:text-xl">{game.description}</CardDescription>
+                <CardTitle className="text-2xl md:text-3xl">
+                  {game.name}
+                </CardTitle>
+                <CardDescription className="text-lg md:text-xl">
+                  {game.description}
+                </CardDescription>
               </CardHeader>
               <CardContent className="p-6 pt-0">
-                <Button asChild size="lg" className="w-full text-lg md:text-xl py-6">
+                <Button
+                  asChild
+                  size="lg"
+                  className="w-full text-lg md:text-xl py-6"
+                >
                   <Link href={game.route}>Jogar</Link>
                 </Button>
               </CardContent>
@@ -80,5 +110,5 @@ export default function JogosPage() {
         </div>
       </div>
     </main>
-  )
+  );
 }

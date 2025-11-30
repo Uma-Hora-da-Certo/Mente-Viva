@@ -95,11 +95,7 @@ export function MemoryGame() {
   useEffect(() => {
     const updateScore = async () => {
       try {
-        const result = await submitScore("memory-game", {
-          user_id: "user-123",
-          username: "José",
-          score: moves,
-        });
+        const result = await submitScore("memory-game", { score: moves });
         console.log("leaderboard updated", result.leaderboard);
       } catch (err) {
         console.error("Não foi possível enviar o score", err);

@@ -11,3 +11,11 @@ export type GameSlug =
   | "world-search-game"
   | "quiz-game"
   | "puzzle-game";
+
+export const GameSlugEnum = {
+  MEMORY: "memory-game",
+  PAINTING: "painting-game",
+  WORD_SEARCH: "world-search-game",
+  QUIZ: "quiz-game",
+  PUZZLE: "puzzle-game",
+};

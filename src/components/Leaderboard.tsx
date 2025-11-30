@@ -11,10 +11,12 @@ type Row = {
 
 export default function Leaderboard({
   gameSlug,
+  reverse = false,
   limit = 10,
   refreshInterval = 0,
 }: {
   gameSlug: string;
+  reverse?: boolean;
   limit?: number;
   refreshInterval?: number;
 }) {
@@ -25,9 +27,12 @@ export default function Leaderboard({
   const load = async () => {
     setLoading(true);
     setError(null);
+
     try {
       const res = await fetch(
-        `/api/leaderboard/${encodeURIComponent(gameSlug)}?limit=${limit}`
+        `/api/leaderboard/${encodeURIComponent(
+          gameSlug
+        )}?limit=${limit}&reverse=${reverse}`
       );
       const json = await res.json();
       if (!res.ok) throw new Error(json?.error || "failed to load leaderboard");
@@ -62,9 +67,10 @@ export default function Leaderboard({
       )}
       {!error && (
         <ol>
-          {rows.map((r) => (
+          {rows.map((r, index) => (
             <li key={`${r.user_id}-${r.rank}-${r.score}`}>
-              <strong>{r.username ?? "Anon"}</strong> — {r.score} pontos
+              <strong>{index + 1 + "° - " + (r.username ?? "Anon")}</strong> —{" "}
+              {r.score} pontos
               <div style={{ fontSize: 12, color: "#666" }}>
                 {r.achieved_at ? new Date(r.achieved_at).toLocaleString() : ""}
               </div>

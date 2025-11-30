@@ -1,4 +1,3 @@
-// app/api/leaderboard/[slug]/route.ts
 import { NextRequest, NextResponse } from "next/server";
 import { supabaseAdmin } from "@/lib/supabaseServer";
 
@@ -9,11 +8,14 @@ export async function GET(
   const { params } = context;
   const slug = params.slug;
   const limit = Number(req.nextUrl.searchParams.get("limit") ?? 10);
+  const reverse = req.nextUrl.searchParams.get("reverse") === "true";
 
   try {
+    console.log("Chamando leaderboard", reverse, typeof reverse);
     const { data, error } = await supabaseAdmin.rpc("get_leaderboard", {
       p_game_slug: slug,
       p_limit: limit,
+      p_reverse: reverse ?? false,
     });
 
     if (error) throw error;
