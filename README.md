@@ -88,6 +88,8 @@ A plataforma possui **cinco jogos principais**, desenvolvidos com base em práti
 
 ### Passos de instalação
 
+Para acessar o deplay: `https://mente-viva-wtwg.vercel.app`
+
 1. **Clonar o repositório**
 ```bash
 git clone https://github.com/Uma-Hora-da-Certo/Mente-Viva.git
