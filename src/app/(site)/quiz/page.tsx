@@ -1,7 +1,9 @@
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { ArrowLeft } from "lucide-react"
-import { QuizGame } from "@/components/jogos/quiz"
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { ArrowLeft } from "lucide-react";
+import { QuizGame } from "@/components/jogos/quiz";
+import Leaderboard from "@/components/Leaderboard";
+import { GameSlugEnum } from "@/lib/utils";
 
 export default function QuizPage() {
   return (
@@ -14,7 +16,12 @@ export default function QuizPage() {
           </Link>
         </Button>
         <QuizGame />
+        <Leaderboard
+          gameSlug={GameSlugEnum.QUIZ}
+          limit={10}
+          refreshInterval={15000}
+        />
       </div>
     </main>
-  )
+  );
 }

@@ -1,7 +1,9 @@
-import { MemoryGame } from "@/components/jogos/jogo-memoria"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { ArrowLeft } from "lucide-react"
+import { MemoryGame } from "@/components/jogos/jogo-memoria";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { ArrowLeft } from "lucide-react";
+import Leaderboard from "@/components/Leaderboard";
+import { GameSlugEnum } from "@/lib/utils";
 
 export default function MemoriaPage() {
   return (
@@ -14,9 +16,15 @@ export default function MemoriaPage() {
           </Link>
         </Button>
       </div>
-      <div className="flex-1 flex items-center justify-center">
+      <div className="flex-1 flex flex-col items-center justify-center">
         <MemoryGame />
+        <Leaderboard
+          gameSlug={GameSlugEnum.MEMORY}
+          reverse
+          limit={10}
+          refreshInterval={15000}
+        />
       </div>
     </main>
-  )
+  );
 }

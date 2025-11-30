@@ -1,28 +1,39 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
-import { Progress } from "@/components/ui/progress"
+import { useState, useEffect } from "react";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Progress } from "@/components/ui/progress";
+import { submitScore } from "@/lib/submitScore";
 
 type Question = {
-  question: string
-  options: string[]
-  correctAnswer: number
-  category: string
-}
+  question: string;
+  options: string[];
+  correctAnswer: number;
+  category: string;
+};
 
 const QUESTION_BANK: Question[] = [
   // Novelas dos anos 50-70
   {
     question: "Qual foi a primeira novela brasileira transmitida pela TV?",
-    options: ["Sua Vida Me Pertence", "O Direito de Nascer", "2-5499 Ocupado", "Redenção"],
+    options: [
+      "Sua Vida Me Pertence",
+      "O Direito de Nascer",
+      "2-5499 Ocupado",
+      "Redenção",
+    ],
     correctAnswer: 0,
     category: "Novelas",
   },
   {
     question: "Quem foi a protagonista de 'Irmãos Coragem' (1970)?",
-    options: ["Glória Menezes", "Tarcísio Meira", "Cláudio Marzo", "Reginaldo Faria"],
+    options: [
+      "Glória Menezes",
+      "Tarcísio Meira",
+      "Cláudio Marzo",
+      "Reginaldo Faria",
+    ],
     correctAnswer: 1,
     category: "Novelas",
   },
@@ -34,7 +45,12 @@ const QUESTION_BANK: Question[] = [
   },
   {
     question: "Qual novela marcou a estreia de Glória Pires na TV?",
-    options: ["Dancin' Days", "Pecado Capital", "Selva de Pedra", "Cavalo de Aço"],
+    options: [
+      "Dancin' Days",
+      "Pecado Capital",
+      "Selva de Pedra",
+      "Cavalo de Aço",
+    ],
     correctAnswer: 0,
     category: "Novelas",
   },
@@ -47,25 +63,34 @@ const QUESTION_BANK: Question[] = [
 
   // Culinária dos anos 50-70
   {
-    question: "Qual sobremesa era servida em praticamente todas as festas nos anos 60?",
-    options: ["Pudim de leite", "Pavê", "Mousse de chocolate", "Gelatina colorida"],
+    question:
+      "Qual sobremesa era servida em praticamente todas as festas nos anos 60?",
+    options: [
+      "Pudim de leite",
+      "Pavê",
+      "Mousse de chocolate",
+      "Gelatina colorida",
+    ],
     correctAnswer: 3,
     category: "Culinária",
   },
   {
-    question: "Qual marca de margarina fez sucesso nos anos 70 com o slogan 'A Família Unida'?",
+    question:
+      "Qual marca de margarina fez sucesso nos anos 70 com o slogan 'A Família Unida'?",
     options: ["Doriana", "Delícia", "Primor", "Qualy"],
     correctAnswer: 0,
     category: "Culinária",
   },
   {
-    question: "O que era servido como entrada em jantares elegantes nos anos 60?",
+    question:
+      "O que era servido como entrada em jantares elegantes nos anos 60?",
     options: ["Canapés", "Coxinha", "Pastel", "Empada"],
     correctAnswer: 0,
     category: "Culinária",
   },
   {
-    question: "Qual refrigerante chegou ao Brasil em 1942 mas fez sucesso nos anos 50?",
+    question:
+      "Qual refrigerante chegou ao Brasil em 1942 mas fez sucesso nos anos 50?",
     options: ["Fanta", "Sprite", "Coca-Cola", "Guaraná"],
     correctAnswer: 2,
     category: "Culinária",
@@ -80,7 +105,12 @@ const QUESTION_BANK: Question[] = [
   // Cultura dos anos 50-70
   {
     question: "Qual foi o primeiro programa de auditório da TV brasileira?",
-    options: ["Programa Silvio Santos", "Chacrinha", "Almoço com as Estrelas", "Discoteca do Chacrinha"],
+    options: [
+      "Programa Silvio Santos",
+      "Chacrinha",
+      "Almoço com as Estrelas",
+      "Discoteca do Chacrinha",
+    ],
     correctAnswer: 2,
     category: "Cultura",
   },
@@ -98,7 +128,12 @@ const QUESTION_BANK: Question[] = [
   },
   {
     question: "Quem apresentava o programa 'Jovem Guarda' na TV Record?",
-    options: ["Roberto Carlos", "Erasmo Carlos", "Wanderléa", "Todos os anteriores"],
+    options: [
+      "Roberto Carlos",
+      "Erasmo Carlos",
+      "Wanderléa",
+      "Todos os anteriores",
+    ],
     correctAnswer: 3,
     category: "Cultura",
   },
@@ -111,39 +146,62 @@ const QUESTION_BANK: Question[] = [
 
   // Mais Novelas
   {
-    question: "Qual atriz ficou famosa como a 'Viúva Porcina' em Roque Santeiro?",
-    options: ["Regina Duarte", "Lima Duarte", "Beatriz Segall", "Dercy Gonçalves"],
+    question:
+      "Qual atriz ficou famosa como a 'Viúva Porcina' em Roque Santeiro?",
+    options: [
+      "Regina Duarte",
+      "Lima Duarte",
+      "Beatriz Segall",
+      "Dercy Gonçalves",
+    ],
     correctAnswer: 2,
     category: "Novelas",
   },
   {
     question: "Quem foi o autor da novela 'Irmãos Coragem'?",
-    options: ["Dias Gomes", "Janete Clair", "Lauro César Muniz", "Ivani Ribeiro"],
+    options: [
+      "Dias Gomes",
+      "Janete Clair",
+      "Lauro César Muniz",
+      "Ivani Ribeiro",
+    ],
     correctAnswer: 1,
     category: "Novelas",
   },
   {
-    question: "Qual novela de 1975 abordou o tema da ditadura militar de forma simbólica?",
+    question:
+      "Qual novela de 1975 abordou o tema da ditadura militar de forma simbólica?",
     options: ["O Espigão", "Roque Santeiro", "O Bem-Amado", "Saramandaia"],
     correctAnswer: 2,
     category: "Novelas",
   },
   {
     question: "Em 'Selva de Pedra' (1972), quem interpretou Cristiano Vilhena?",
-    options: ["Francisco Cuoco", "Tarcísio Meira", "Paulo Goulart", "Cláudio Marzo"],
+    options: [
+      "Francisco Cuoco",
+      "Tarcísio Meira",
+      "Paulo Goulart",
+      "Cláudio Marzo",
+    ],
     correctAnswer: 0,
     category: "Novelas",
   },
   {
     question: "Qual foi a primeira novela em cores da TV Globo?",
-    options: ["O Bem-Amado", "Irmãos Coragem", "Selva de Pedra", "Cavalo de Aço"],
+    options: [
+      "O Bem-Amado",
+      "Irmãos Coragem",
+      "Selva de Pedra",
+      "Cavalo de Aço",
+    ],
     correctAnswer: 1,
     category: "Novelas",
   },
 
   // Mais Culinária
   {
-    question: "Qual era o prato típico de domingo nas famílias brasileiras dos anos 60?",
+    question:
+      "Qual era o prato típico de domingo nas famílias brasileiras dos anos 60?",
     options: ["Feijoada", "Macarrão", "Frango assado", "Churrasco"],
     correctAnswer: 2,
     category: "Culinária",
@@ -156,7 +214,12 @@ const QUESTION_BANK: Question[] = [
   },
   {
     question: "O que era servido em festas infantis nos anos 70?",
-    options: ["Cachorro-quente", "Brigadeiro", "Beijinho", "Todas as anteriores"],
+    options: [
+      "Cachorro-quente",
+      "Brigadeiro",
+      "Beijinho",
+      "Todas as anteriores",
+    ],
     correctAnswer: 3,
     category: "Culinária",
   },
@@ -175,20 +238,31 @@ const QUESTION_BANK: Question[] = [
 
   // Mais Cultura
   {
-    question: "Qual foi o primeiro satélite artificial lançado ao espaço em 1957?",
+    question:
+      "Qual foi o primeiro satélite artificial lançado ao espaço em 1957?",
     options: ["Apollo 11", "Sputnik", "Explorer 1", "Vostok 1"],
     correctAnswer: 1,
     category: "Cultura",
   },
   {
     question: "Quem foi o presidente do Brasil durante a Copa de 1970?",
-    options: ["Juscelino Kubitschek", "João Goulart", "Emílio Médici", "Castelo Branco"],
+    options: [
+      "Juscelino Kubitschek",
+      "João Goulart",
+      "Emílio Médici",
+      "Castelo Branco",
+    ],
     correctAnswer: 2,
     category: "Cultura",
   },
   {
     question: "Qual cantor era conhecido como 'O Rei' nos anos 50?",
-    options: ["Elvis Presley", "Frank Sinatra", "Chuck Berry", "Little Richard"],
+    options: [
+      "Elvis Presley",
+      "Frank Sinatra",
+      "Chuck Berry",
+      "Little Richard",
+    ],
     correctAnswer: 0,
     category: "Cultura",
   },
@@ -199,7 +273,8 @@ const QUESTION_BANK: Question[] = [
     category: "Cultura",
   },
   {
-    question: "Qual foi o primeiro Festival da Canção realizado pela TV Record?",
+    question:
+      "Qual foi o primeiro Festival da Canção realizado pela TV Record?",
     options: ["1965", "1966", "1967", "1968"],
     correctAnswer: 1,
     category: "Cultura",
@@ -208,25 +283,46 @@ const QUESTION_BANK: Question[] = [
   // Continuando com mais perguntas variadas...
   {
     question: "Qual atriz foi considerada o símbolo sexual dos anos 50?",
-    options: ["Marilyn Monroe", "Brigitte Bardot", "Sophia Loren", "Elizabeth Taylor"],
+    options: [
+      "Marilyn Monroe",
+      "Brigitte Bardot",
+      "Sophia Loren",
+      "Elizabeth Taylor",
+    ],
     correctAnswer: 0,
     category: "Cultura",
   },
   {
     question: "Qual programa infantil estreou na TV Tupi em 1952?",
-    options: ["Sítio do Picapau Amarelo", "Circo do Arrelia", "TV de Vanguarda", "Clube do Guri"],
+    options: [
+      "Sítio do Picapau Amarelo",
+      "Circo do Arrelia",
+      "TV de Vanguarda",
+      "Clube do Guri",
+    ],
     correctAnswer: 1,
     category: "Cultura",
   },
   {
     question: "Quem cantou 'Garota de Ipanema' em 1962?",
-    options: ["Tom Jobim", "João Gilberto", "Vinicius de Moraes", "Todos os anteriores"],
+    options: [
+      "Tom Jobim",
+      "João Gilberto",
+      "Vinicius de Moraes",
+      "Todos os anteriores",
+    ],
     correctAnswer: 3,
     category: "Cultura",
   },
   {
-    question: "Qual foi o primeiro shopping center do Brasil, inaugurado em 1966?",
-    options: ["Shopping Iguatemi SP", "Shopping Ibirapuera", "Shopping Morumbi", "Shopping Paulista"],
+    question:
+      "Qual foi o primeiro shopping center do Brasil, inaugurado em 1966?",
+    options: [
+      "Shopping Iguatemi SP",
+      "Shopping Ibirapuera",
+      "Shopping Morumbi",
+      "Shopping Paulista",
+    ],
     correctAnswer: 0,
     category: "Cultura",
   },
@@ -246,13 +342,23 @@ const QUESTION_BANK: Question[] = [
   },
   {
     question: "Quem interpretou Helena em 'Selva de Pedra'?",
-    options: ["Dina Sfat", "Regina Duarte", "Glória Menezes", "Fernanda Montenegro"],
+    options: [
+      "Dina Sfat",
+      "Regina Duarte",
+      "Glória Menezes",
+      "Fernanda Montenegro",
+    ],
     correctAnswer: 0,
     category: "Novelas",
   },
   {
     question: "Qual foi a primeira novela de Janete Clair?",
-    options: ["Irmãos Coragem", "Véu de Noiva", "Anastácia, a Mulher sem Destino", "Sangue e Areia"],
+    options: [
+      "Irmãos Coragem",
+      "Véu de Noiva",
+      "Anastácia, a Mulher sem Destino",
+      "Sangue e Areia",
+    ],
     correctAnswer: 2,
     category: "Novelas",
   },
@@ -283,8 +389,14 @@ const QUESTION_BANK: Question[] = [
     category: "Culinária",
   },
   {
-    question: "O que era servido como sobremesa em restaurantes por quilo nos anos 70?",
-    options: ["Não existia restaurante por quilo", "Pudim", "Sorvete", "Frutas"],
+    question:
+      "O que era servido como sobremesa em restaurantes por quilo nos anos 70?",
+    options: [
+      "Não existia restaurante por quilo",
+      "Pudim",
+      "Sorvete",
+      "Frutas",
+    ],
     correctAnswer: 0,
     category: "Culinária",
   },
@@ -303,8 +415,14 @@ const QUESTION_BANK: Question[] = [
 
   // Cultura - continuação
   {
-    question: "Qual foi o primeiro filme brasileiro a ganhar a Palma de Ouro em Cannes?",
-    options: ["O Pagador de Promessas", "Deus e o Diabo na Terra do Sol", "Terra em Transe", "Vidas Secas"],
+    question:
+      "Qual foi o primeiro filme brasileiro a ganhar a Palma de Ouro em Cannes?",
+    options: [
+      "O Pagador de Promessas",
+      "Deus e o Diabo na Terra do Sol",
+      "Terra em Transe",
+      "Vidas Secas",
+    ],
     correctAnswer: 0,
     category: "Cultura",
   },
@@ -316,7 +434,12 @@ const QUESTION_BANK: Question[] = [
   },
   {
     question: "Qual cantor era conhecido como 'O Rei da Voz'?",
-    options: ["Orlando Silva", "Francisco Alves", "Nelson Gonçalves", "Cauby Peixoto"],
+    options: [
+      "Orlando Silva",
+      "Francisco Alves",
+      "Nelson Gonçalves",
+      "Cauby Peixoto",
+    ],
     correctAnswer: 2,
     category: "Cultura",
   },
@@ -348,7 +471,12 @@ const QUESTION_BANK: Question[] = [
   },
   {
     question: "Qual programa de rádio era o mais ouvido nos anos 50?",
-    options: ["Balança mas não Cai", "Programa César de Alencar", "A Hora do Brasil", "Repórter Esso"],
+    options: [
+      "Balança mas não Cai",
+      "Programa César de Alencar",
+      "A Hora do Brasil",
+      "Repórter Esso",
+    ],
     correctAnswer: 3,
     category: "Cultura",
   },
@@ -359,7 +487,8 @@ const QUESTION_BANK: Question[] = [
     category: "Cultura",
   },
   {
-    question: "Em que ano foi realizada a primeira transmissão de TV no Brasil?",
+    question:
+      "Em que ano foi realizada a primeira transmissão de TV no Brasil?",
     options: ["1948", "1950", "1952", "1954"],
     correctAnswer: 1,
     category: "Cultura",
@@ -367,25 +496,45 @@ const QUESTION_BANK: Question[] = [
 
   {
     question: "Qual cantor era conhecido como 'Tremendão'?",
-    options: ["Erasmo Carlos", "Roberto Carlos", "Wanderley Cardoso", "Jerry Adriani"],
+    options: [
+      "Erasmo Carlos",
+      "Roberto Carlos",
+      "Wanderley Cardoso",
+      "Jerry Adriani",
+    ],
     correctAnswer: 0,
     category: "Cultura",
   },
   {
     question: "Qual foi o primeiro filme de James Bond?",
-    options: ["007 Contra Goldfinger", "Dr. No", "Moscou Contra 007", "007 Contra o Satânico Dr. No"],
+    options: [
+      "007 Contra Goldfinger",
+      "Dr. No",
+      "Moscou Contra 007",
+      "007 Contra o Satânico Dr. No",
+    ],
     correctAnswer: 1,
     category: "Cultura",
   },
   {
     question: "Quem foi o primeiro apresentador do Fantástico?",
-    options: ["Cid Moreira", "Sérgio Chapelin", "Hilton Gomes", "Não teve apresentador fixo"],
+    options: [
+      "Cid Moreira",
+      "Sérgio Chapelin",
+      "Hilton Gomes",
+      "Não teve apresentador fixo",
+    ],
     correctAnswer: 3,
     category: "Cultura",
   },
   {
     question: "Qual foi a primeira novela das 8 da Globo?",
-    options: ["Irmãos Coragem", "Selva de Pedra", "Véu de Noiva", "Cavalo de Aço"],
+    options: [
+      "Irmãos Coragem",
+      "Selva de Pedra",
+      "Véu de Noiva",
+      "Cavalo de Aço",
+    ],
     correctAnswer: 0,
     category: "Novelas",
   },
@@ -416,13 +565,23 @@ const QUESTION_BANK: Question[] = [
   },
   {
     question: "Qual foi o primeiro festival de música pop no Brasil?",
-    options: ["Hollywood Rock", "Festival de Woodstock", "Festival da Canção", "Phono 73"],
+    options: [
+      "Hollywood Rock",
+      "Festival de Woodstock",
+      "Festival da Canção",
+      "Phono 73",
+    ],
     correctAnswer: 3,
     category: "Cultura",
   },
   {
     question: "Quem foi o primeiro brasileiro no espaço?",
-    options: ["Marcos Pontes", "Não houve nos anos 50-70", "Santos Dumont", "Nenhum brasileiro foi ao espaço"],
+    options: [
+      "Marcos Pontes",
+      "Não houve nos anos 50-70",
+      "Santos Dumont",
+      "Nenhum brasileiro foi ao espaço",
+    ],
     correctAnswer: 1,
     category: "Cultura",
   },
@@ -434,8 +593,14 @@ const QUESTION_BANK: Question[] = [
     category: "Cultura",
   },
   {
-    question: "Qual programa de TV era apresentado por Hebe Camargo nos anos 60?",
-    options: ["Hebe", "O Mundo é das Mulheres", "Almoço com as Estrelas", "Programa da Hebe"],
+    question:
+      "Qual programa de TV era apresentado por Hebe Camargo nos anos 60?",
+    options: [
+      "Hebe",
+      "O Mundo é das Mulheres",
+      "Almoço com as Estrelas",
+      "Programa da Hebe",
+    ],
     correctAnswer: 1,
     category: "Cultura",
   },
@@ -447,12 +612,18 @@ const QUESTION_BANK: Question[] = [
   },
   {
     question: "Qual cantor era conhecido como 'O Rei da Bossa Nova'?",
-    options: ["Tom Jobim", "João Gilberto", "Vinicius de Moraes", "Baden Powell"],
+    options: [
+      "Tom Jobim",
+      "João Gilberto",
+      "Vinicius de Moraes",
+      "Baden Powell",
+    ],
     correctAnswer: 1,
     category: "Cultura",
   },
   {
-    question: "Qual foi a primeira Copa do Mundo transmitida pela TV brasileira?",
+    question:
+      "Qual foi a primeira Copa do Mundo transmitida pela TV brasileira?",
     options: ["1954", "1958", "1962", "1966"],
     correctAnswer: 1,
     category: "Cultura",
@@ -460,7 +631,12 @@ const QUESTION_BANK: Question[] = [
 
   {
     question: "Qual novela marcou a estreia de Tony Ramos na TV?",
-    options: ["Pecado Capital", "Dancin' Days", "Cavalo de Aço", "Selva de Pedra"],
+    options: [
+      "Pecado Capital",
+      "Dancin' Days",
+      "Cavalo de Aço",
+      "Selva de Pedra",
+    ],
     correctAnswer: 2,
     category: "Novelas",
   },
@@ -472,26 +648,46 @@ const QUESTION_BANK: Question[] = [
   },
   {
     question: "Qual era o jornal mais lido nos anos 60?",
-    options: ["O Globo", "Folha de S.Paulo", "O Estado de S. Paulo", "Jornal do Brasil"],
+    options: [
+      "O Globo",
+      "Folha de S.Paulo",
+      "O Estado de S. Paulo",
+      "Jornal do Brasil",
+    ],
     correctAnswer: 3,
     category: "Cultura",
   },
   {
     question: "Qual foi o primeiro filme brasileiro em cores?",
-    options: ["O Cangaceiro", "Destino em Apuros", "Sinhá Moça", "Tico-Tico no Fubá"],
+    options: [
+      "O Cangaceiro",
+      "Destino em Apuros",
+      "Sinhá Moça",
+      "Tico-Tico no Fubá",
+    ],
     correctAnswer: 1,
     category: "Cultura",
   },
   {
     question: "Qual cantor era conhecido como 'O Bruxo'?",
-    options: ["Roberto Carlos", "Erasmo Carlos", "Raul Seixas", "Caetano Veloso"],
+    options: [
+      "Roberto Carlos",
+      "Erasmo Carlos",
+      "Raul Seixas",
+      "Caetano Veloso",
+    ],
     correctAnswer: 2,
     category: "Cultura",
   },
 
   {
     question: "Qual foi a primeira minissérie da TV Globo?",
-    options: ["Lampião e Maria Bonita", "Avenida Paulista", "Caso Verdade", "Malu Mulher"],
+    options: [
+      "Lampião e Maria Bonita",
+      "Avenida Paulista",
+      "Caso Verdade",
+      "Malu Mulher",
+    ],
     correctAnswer: 0,
     category: "Novelas",
   },
@@ -503,7 +699,12 @@ const QUESTION_BANK: Question[] = [
   },
   {
     question: "Qual foi o primeiro programa de humor da TV brasileira?",
-    options: ["Praça da Alegria", "Balança mas não Cai", "Família Trapo", "Chico Anysio Show"],
+    options: [
+      "Praça da Alegria",
+      "Balança mas não Cai",
+      "Família Trapo",
+      "Chico Anysio Show",
+    ],
     correctAnswer: 2,
     category: "Cultura",
   },
@@ -515,20 +716,35 @@ const QUESTION_BANK: Question[] = [
   },
   {
     question: "Qual foi a primeira telenovela diária da TV brasileira?",
-    options: ["2-5499 Ocupado", "O Direito de Nascer", "Sua Vida Me Pertence", "Helena"],
+    options: [
+      "2-5499 Ocupado",
+      "O Direito de Nascer",
+      "Sua Vida Me Pertence",
+      "Helena",
+    ],
     correctAnswer: 0,
     category: "Novelas",
   },
 
   {
     question: "Qual cantor era conhecido como 'O Príncipe dos Poetas'?",
-    options: ["Vinicius de Moraes", "Chico Buarque", "Caetano Veloso", "Gilberto Gil"],
+    options: [
+      "Vinicius de Moraes",
+      "Chico Buarque",
+      "Caetano Veloso",
+      "Gilberto Gil",
+    ],
     correctAnswer: 0,
     category: "Cultura",
   },
   {
     question: "Qual foi o primeiro programa de auditório da TV Globo?",
-    options: ["Programa Silvio Santos", "Chacrinha", "Buzina do Chacrinha", "Discoteca do Chacrinha"],
+    options: [
+      "Programa Silvio Santos",
+      "Chacrinha",
+      "Buzina do Chacrinha",
+      "Discoteca do Chacrinha",
+    ],
     correctAnswer: 2,
     category: "Cultura",
   },
@@ -540,13 +756,23 @@ const QUESTION_BANK: Question[] = [
   },
   {
     question: "Qual foi o primeiro desenho animado brasileiro?",
-    options: ["Sítio do Picapau Amarelo", "Turma da Mônica", "Pererê", "Senninha"],
+    options: [
+      "Sítio do Picapau Amarelo",
+      "Turma da Mônica",
+      "Pererê",
+      "Senninha",
+    ],
     correctAnswer: 2,
     category: "Cultura",
   },
   {
     question: "Qual cantor era conhecido como 'O Seresteiro das Multidões'?",
-    options: ["Nelson Gonçalves", "Orlando Silva", "Francisco Alves", "Cauby Peixoto"],
+    options: [
+      "Nelson Gonçalves",
+      "Orlando Silva",
+      "Francisco Alves",
+      "Cauby Peixoto",
+    ],
     correctAnswer: 0,
     category: "Cultura",
   },
@@ -565,19 +791,34 @@ const QUESTION_BANK: Question[] = [
   },
   {
     question: "Qual foi o primeiro parque de diversões do Brasil?",
-    options: ["Playcenter", "Hopi Hari", "Parque da Mônica", "Parque de Diversões do Ibirapuera"],
+    options: [
+      "Playcenter",
+      "Hopi Hari",
+      "Parque da Mônica",
+      "Parque de Diversões do Ibirapuera",
+    ],
     correctAnswer: 3,
     category: "Cultura",
   },
   {
     question: "Qual cantor era conhecido como 'O Rei do Iê-iê-iê'?",
-    options: ["Roberto Carlos", "Erasmo Carlos", "Wanderley Cardoso", "Ronnie Von"],
+    options: [
+      "Roberto Carlos",
+      "Erasmo Carlos",
+      "Wanderley Cardoso",
+      "Ronnie Von",
+    ],
     correctAnswer: 0,
     category: "Cultura",
   },
   {
     question: "Qual foi a primeira emissora de rádio do Brasil?",
-    options: ["Rádio Sociedade do Rio de Janeiro", "Rádio Nacional", "Rádio Tupi", "Rádio Record"],
+    options: [
+      "Rádio Sociedade do Rio de Janeiro",
+      "Rádio Nacional",
+      "Rádio Tupi",
+      "Rádio Record",
+    ],
     correctAnswer: 0,
     category: "Cultura",
   },
@@ -621,7 +862,12 @@ const QUESTION_BANK: Question[] = [
   },
   {
     question: "Qual cantor era conhecido como 'O Rei da Lambada'?",
-    options: ["Não existia lambada nos anos 50-70", "Beto Barbosa", "Márcia Ferreira", "Kaoma"],
+    options: [
+      "Não existia lambada nos anos 50-70",
+      "Beto Barbosa",
+      "Márcia Ferreira",
+      "Kaoma",
+    ],
     correctAnswer: 0,
     category: "Cultura",
   },
@@ -639,7 +885,12 @@ const QUESTION_BANK: Question[] = [
   },
   {
     question: "Qual foi o primeiro presidente eleito após o golpe de 1964?",
-    options: ["Ernesto Geisel", "Emílio Médici", "Costa e Silva", "Castelo Branco"],
+    options: [
+      "Ernesto Geisel",
+      "Emílio Médici",
+      "Costa e Silva",
+      "Castelo Branco",
+    ],
     correctAnswer: 3,
     category: "Cultura",
   },
@@ -652,7 +903,12 @@ const QUESTION_BANK: Question[] = [
   },
   {
     question: "Qual foi a primeira ponte ligando Rio e Niterói?",
-    options: ["Ponte Rio-Niterói", "Ponte Presidente Costa e Silva", "Ambas são a mesma", "Ponte da Amizade"],
+    options: [
+      "Ponte Rio-Niterói",
+      "Ponte Presidente Costa e Silva",
+      "Ambas são a mesma",
+      "Ponte da Amizade",
+    ],
     correctAnswer: 2,
     category: "Cultura",
   },
@@ -670,7 +926,12 @@ const QUESTION_BANK: Question[] = [
   },
   {
     question: "Qual cantor era conhecido como 'O Rei do Samba'?",
-    options: ["Cartola", "Nelson Cavaquinho", "Martinho da Vila", "Bezerra da Silva"],
+    options: [
+      "Cartola",
+      "Nelson Cavaquinho",
+      "Martinho da Vila",
+      "Bezerra da Silva",
+    ],
     correctAnswer: 0,
     category: "Cultura",
   },
@@ -713,14 +974,20 @@ const QUESTION_BANK: Question[] = [
     category: "Cultura",
   },
   {
-    question: "Qual foi o primeiro estádio de futebol com capacidade para 100 mil pessoas?",
+    question:
+      "Qual foi o primeiro estádio de futebol com capacidade para 100 mil pessoas?",
     options: ["Maracanã", "Morumbi", "Mineirão", "Pacaembu"],
     correctAnswer: 0,
     category: "Cultura",
   },
   {
     question: "Qual cantor era conhecido como 'O Rei do Rock Brasileiro'?",
-    options: ["Celly Campello", "Tony Campello", "Ronnie Cord", "Sérgio Murilo"],
+    options: [
+      "Celly Campello",
+      "Tony Campello",
+      "Ronnie Cord",
+      "Sérgio Murilo",
+    ],
     correctAnswer: 1,
     category: "Cultura",
   },
@@ -738,14 +1005,20 @@ const QUESTION_BANK: Question[] = [
   },
 
   {
-    question: "Qual foi o primeiro time brasileiro a fazer uma excursão internacional?",
+    question:
+      "Qual foi o primeiro time brasileiro a fazer uma excursão internacional?",
     options: ["Corinthians", "Fluminense", "Flamengo", "Palmeiras"],
     correctAnswer: 1,
     category: "Cultura",
   },
   {
     question: "Qual cantor era conhecido como 'O Rei da Música Caipira'?",
-    options: ["Tonico e Tinoco", "Tião Carreiro e Pardinho", "Milionário e José Rico", "Chitãozinho e Xororó"],
+    options: [
+      "Tonico e Tinoco",
+      "Tião Carreiro e Pardinho",
+      "Milionário e José Rico",
+      "Chitãozinho e Xororó",
+    ],
     correctAnswer: 0,
     category: "Cultura",
   },
@@ -762,15 +1035,26 @@ const QUESTION_BANK: Question[] = [
     category: "Cultura",
   },
   {
-    question: "Qual foi o primeiro presidente do Brasil eleito pelo voto direto?",
-    options: ["Getúlio Vargas", "Juscelino Kubitschek", "Jânio Quadros", "Eurico Gaspar Dutra"],
+    question:
+      "Qual foi o primeiro presidente do Brasil eleito pelo voto direto?",
+    options: [
+      "Getúlio Vargas",
+      "Juscelino Kubitschek",
+      "Jânio Quadros",
+      "Eurico Gaspar Dutra",
+    ],
     correctAnswer: 3,
     category: "Cultura",
   },
 
   {
     question: "Qual cantor era conhecido como 'O Rei do Bolero'?",
-    options: ["Agnaldo Rayol", "Altemar Dutra", "Waldick Soriano", "Lindomar Castilho"],
+    options: [
+      "Agnaldo Rayol",
+      "Altemar Dutra",
+      "Waldick Soriano",
+      "Lindomar Castilho",
+    ],
     correctAnswer: 1,
     category: "Cultura",
   },
@@ -788,7 +1072,12 @@ const QUESTION_BANK: Question[] = [
   },
   {
     question: "Qual foi o primeiro túnel do Rio de Janeiro?",
-    options: ["Túnel Rebouças", "Túnel Santa Bárbara", "Túnel Velho", "Túnel Novo"],
+    options: [
+      "Túnel Rebouças",
+      "Túnel Santa Bárbara",
+      "Túnel Velho",
+      "Túnel Novo",
+    ],
     correctAnswer: 2,
     category: "Cultura",
   },
@@ -819,13 +1108,23 @@ const QUESTION_BANK: Question[] = [
   },
   {
     question: "Qual cantor era conhecido como 'O Rei da Música Brega'?",
-    options: ["Reginaldo Rossi", "Waldick Soriano", "Odair José", "Agnaldo Timóteo"],
+    options: [
+      "Reginaldo Rossi",
+      "Waldick Soriano",
+      "Odair José",
+      "Agnaldo Timóteo",
+    ],
     correctAnswer: 1,
     category: "Cultura",
   },
   {
     question: "Qual foi a primeira linha de ônibus do Rio de Janeiro?",
-    options: ["Não se sabe ao certo", "Linha 1", "Circular", "Centro-Copacabana"],
+    options: [
+      "Não se sabe ao certo",
+      "Linha 1",
+      "Circular",
+      "Centro-Copacabana",
+    ],
     correctAnswer: 0,
     category: "Cultura",
   },
@@ -844,7 +1143,12 @@ const QUESTION_BANK: Question[] = [
   },
   {
     question: "Qual cantor era conhecido como 'O Rei do Forró'?",
-    options: ["Luiz Gonzaga", "Jackson do Pandeiro", "Dominguinhos", "Genival Lacerda"],
+    options: [
+      "Luiz Gonzaga",
+      "Jackson do Pandeiro",
+      "Dominguinhos",
+      "Genival Lacerda",
+    ],
     correctAnswer: 0,
     category: "Cultura",
   },
@@ -863,13 +1167,23 @@ const QUESTION_BANK: Question[] = [
 
   {
     question: "Qual foi o primeiro zoológico do Brasil?",
-    options: ["Zoo de São Paulo", "Zoo do Rio", "Zoo de BH", "Jardim Zoológico do Rio"],
+    options: [
+      "Zoo de São Paulo",
+      "Zoo do Rio",
+      "Zoo de BH",
+      "Jardim Zoológico do Rio",
+    ],
     correctAnswer: 3,
     category: "Cultura",
   },
   {
     question: "Qual cantor era conhecido como 'O Rei da Seresta'?",
-    options: ["Nelson Gonçalves", "Cauby Peixoto", "Agnaldo Rayol", "Altemar Dutra"],
+    options: [
+      "Nelson Gonçalves",
+      "Cauby Peixoto",
+      "Agnaldo Rayol",
+      "Altemar Dutra",
+    ],
     correctAnswer: 0,
     category: "Cultura",
   },
@@ -887,13 +1201,19 @@ const QUESTION_BANK: Question[] = [
   },
   {
     question: "Qual foi o primeiro museu do Brasil?",
-    options: ["MASP", "Museu Nacional", "Museu Imperial", "Museu Histórico Nacional"],
+    options: [
+      "MASP",
+      "Museu Nacional",
+      "Museu Imperial",
+      "Museu Histórico Nacional",
+    ],
     correctAnswer: 1,
     category: "Cultura",
   },
 
   {
-    question: "Qual cantor era conhecido como 'O Rei da Música Popular Brasileira'?",
+    question:
+      "Qual cantor era conhecido como 'O Rei da Música Popular Brasileira'?",
     options: ["Chico Buarque", "Caetano Veloso", "Gilberto Gil", "Elis Regina"],
     correctAnswer: 0,
     category: "Cultura",
@@ -917,7 +1237,12 @@ const QUESTION_BANK: Question[] = [
   },
   {
     question: "Qual foi o primeiro teatro do Brasil?",
-    options: ["Teatro Municipal do Rio", "Teatro Municipal de SP", "Casa da Ópera", "Teatro São Pedro"],
+    options: [
+      "Teatro Municipal do Rio",
+      "Teatro Municipal de SP",
+      "Casa da Ópera",
+      "Teatro São Pedro",
+    ],
     correctAnswer: 2,
     category: "Cultura",
   },
@@ -942,7 +1267,12 @@ const QUESTION_BANK: Question[] = [
   },
   {
     question: "Qual foi o primeiro jornal do Brasil?",
-    options: ["Gazeta do Rio de Janeiro", "Correio Braziliense", "Diário de Pernambuco", "Jornal do Commercio"],
+    options: [
+      "Gazeta do Rio de Janeiro",
+      "Correio Braziliense",
+      "Diário de Pernambuco",
+      "Jornal do Commercio",
+    ],
     correctAnswer: 0,
     category: "Cultura",
   },
@@ -954,7 +1284,12 @@ const QUESTION_BANK: Question[] = [
   },
   {
     question: "Qual foi a primeira editora do Brasil?",
-    options: ["Companhia das Letras", "Record", "Impressão Régia", "José Olympio"],
+    options: [
+      "Companhia das Letras",
+      "Record",
+      "Impressão Régia",
+      "José Olympio",
+    ],
     correctAnswer: 2,
     category: "Cultura",
   },
@@ -967,13 +1302,23 @@ const QUESTION_BANK: Question[] = [
   },
   {
     question: "Qual foi o primeiro hospital do Brasil?",
-    options: ["Santa Casa de Misericórdia", "Hospital das Clínicas", "Hospital São Paulo", "Hospital Sírio-Libanês"],
+    options: [
+      "Santa Casa de Misericórdia",
+      "Hospital das Clínicas",
+      "Hospital São Paulo",
+      "Hospital Sírio-Libanês",
+    ],
     correctAnswer: 0,
     category: "Cultura",
   },
   {
     question: "Qual cantor era conhecido como 'O Rei do Choro'?",
-    options: ["Pixinguinha", "Jacob do Bandolim", "Waldir Azevedo", "Altamiro Carrilho"],
+    options: [
+      "Pixinguinha",
+      "Jacob do Bandolim",
+      "Waldir Azevedo",
+      "Altamiro Carrilho",
+    ],
     correctAnswer: 0,
     category: "Cultura",
   },
@@ -984,7 +1329,8 @@ const QUESTION_BANK: Question[] = [
     category: "Culinária",
   },
   {
-    question: "Qual era a marca de barbeador elétrico mais vendida nos anos 70?",
+    question:
+      "Qual era a marca de barbeador elétrico mais vendida nos anos 70?",
     options: ["Philips", "Remington", "Braun", "Panasonic"],
     correctAnswer: 0,
     category: "Cultura",
@@ -992,19 +1338,34 @@ const QUESTION_BANK: Question[] = [
 
   {
     question: "Qual foi o primeiro clube de futebol do Brasil?",
-    options: ["Fluminense", "São Paulo Athletic", "Sport Club do Recife", "Ponte Preta"],
+    options: [
+      "Fluminense",
+      "São Paulo Athletic",
+      "Sport Club do Recife",
+      "Ponte Preta",
+    ],
     correctAnswer: 1,
     category: "Cultura",
   },
   {
     question: "Qual cantor era conhecido como 'O Rei da Música Sertaneja'?",
-    options: ["Tonico e Tinoco", "Tião Carreiro e Pardinho", "Milionário e José Rico", "Chitãozinho e Xororó"],
+    options: [
+      "Tonico e Tinoco",
+      "Tião Carreiro e Pardinho",
+      "Milionário e José Rico",
+      "Chitãozinho e Xororó",
+    ],
     correctAnswer: 0,
     category: "Cultura",
   },
   {
     question: "Qual foi a primeira padaria do Brasil?",
-    options: ["Não se sabe ao certo", "Padaria Brasileira", "Padaria Mooca", "Padaria Santa Tereza"],
+    options: [
+      "Não se sabe ao certo",
+      "Padaria Brasileira",
+      "Padaria Mooca",
+      "Padaria Santa Tereza",
+    ],
     correctAnswer: 0,
     category: "Culinária",
   },
@@ -1016,13 +1377,19 @@ const QUESTION_BANK: Question[] = [
   },
   {
     question: "Qual foi o primeiro circo do Brasil?",
-    options: ["Circo Garcia", "Circo Irmãos Viana", "Não se sabe ao certo", "Circo Tihany"],
+    options: [
+      "Circo Garcia",
+      "Circo Irmãos Viana",
+      "Não se sabe ao certo",
+      "Circo Tihany",
+    ],
     correctAnswer: 2,
     category: "Cultura",
   },
 
   {
-    question: "Qual cantor era conhecido como 'O Rei da Música Romântica Brasileira'?",
+    question:
+      "Qual cantor era conhecido como 'O Rei da Música Romântica Brasileira'?",
     options: ["Fábio Jr.", "Djavan", "Roberto Carlos", "Erasmo Carlos"],
     correctAnswer: 2,
     category: "Cultura",
@@ -1041,7 +1408,12 @@ const QUESTION_BANK: Question[] = [
   },
   {
     question: "Qual foi o primeiro cassino do Brasil?",
-    options: ["Cassino da Urca", "Cassino Atlântico", "Cassino Copacabana", "Cassino Icaraí"],
+    options: [
+      "Cassino da Urca",
+      "Cassino Atlântico",
+      "Cassino Copacabana",
+      "Cassino Icaraí",
+    ],
     correctAnswer: 0,
     category: "Cultura",
   },
@@ -1051,95 +1423,122 @@ const QUESTION_BANK: Question[] = [
     correctAnswer: 0,
     category: "Cultura",
   },
-]
+];
 
 function getRandomQuestions(): Question[] {
-  const shuffled = [...QUESTION_BANK].sort(() => Math.random() - 0.5)
-  return shuffled.slice(0, 20)
+  const shuffled = [...QUESTION_BANK].sort(() => Math.random() - 0.5);
+  return shuffled.slice(0, 20);
 }
 
 export function QuizGame() {
-  const [questions, setQuestions] = useState<Question[]>([])
-  const [currentQuestion, setCurrentQuestion] = useState(0)
-  const [score, setScore] = useState(0)
-  const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null)
-  const [showResult, setShowResult] = useState(false)
-  const [gameStarted, setGameStarted] = useState(false)
-  const [timeLeft, setTimeLeft] = useState(30)
+  const [questions, setQuestions] = useState<Question[]>([]);
+  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [score, setScore] = useState(0);
+  const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
+  const [showResult, setShowResult] = useState(false);
+  const [gameStarted, setGameStarted] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(30);
 
   const startGame = () => {
-    setQuestions(getRandomQuestions())
-    setCurrentQuestion(0)
-    setScore(0)
-    setSelectedAnswer(null)
-    setShowResult(false)
-    setGameStarted(true)
-    setTimeLeft(30)
-  }
+    setQuestions(getRandomQuestions());
+    setCurrentQuestion(0);
+    setScore(0);
+    setSelectedAnswer(null);
+    setShowResult(false);
+    setGameStarted(true);
+    setTimeLeft(30);
+  };
 
   useEffect(() => {
-    if (!gameStarted || showResult || selectedAnswer !== null) return
+    if (!gameStarted || showResult || selectedAnswer !== null) return;
 
     const timer = setInterval(() => {
       setTimeLeft((prev) => {
         if (prev <= 1) {
-          handleNextQuestion()
-          return 30
+          handleNextQuestion();
+          return 30;
         }
-        return prev - 1
-      })
-    }, 1000)
+        return prev - 1;
+      });
+    }, 1000);
 
-    return () => clearInterval(timer)
-  }, [gameStarted, showResult, selectedAnswer, currentQuestion])
+    return () => clearInterval(timer);
+  }, [gameStarted, showResult, selectedAnswer, currentQuestion]);
 
   const handleAnswerClick = (answerIndex: number) => {
-    if (selectedAnswer !== null) return
+    if (selectedAnswer !== null) return;
 
-    setSelectedAnswer(answerIndex)
+    setSelectedAnswer(answerIndex);
     if (answerIndex === questions[currentQuestion].correctAnswer) {
-      setScore(score + 1)
+      setScore(score + 1);
     }
-  }
+  };
 
   const handleNextQuestion = () => {
-    const nextQuestion = currentQuestion + 1
+    const nextQuestion = currentQuestion + 1;
     if (nextQuestion < questions.length) {
-      setCurrentQuestion(nextQuestion)
-      setSelectedAnswer(null)
-      setTimeLeft(30)
+      setCurrentQuestion(nextQuestion);
+      setSelectedAnswer(null);
+      setTimeLeft(30);
     } else {
-      setShowResult(true)
+      setShowResult(true);
     }
-  }
+  };
 
   const getButtonColor = (index: number) => {
-    const colors = ["bg-blue-500", "bg-green-500", "bg-orange-500", "bg-pink-500"]
-    return colors[index]
-  }
+    const colors = [
+      "bg-blue-500",
+      "bg-green-500",
+      "bg-orange-500",
+      "bg-pink-500",
+    ];
+    return colors[index];
+  };
 
   const getButtonHoverColor = (index: number) => {
-    const colors = ["hover:bg-blue-600", "hover:bg-green-600", "hover:bg-orange-600", "hover:bg-pink-600"]
-    return colors[index]
-  }
+    const colors = [
+      "hover:bg-blue-600",
+      "hover:bg-green-600",
+      "hover:bg-orange-600",
+      "hover:bg-pink-600",
+    ];
+    return colors[index];
+  };
+
+  useEffect(() => {
+    const updateRankig = async () => {
+      try {
+        const result = await submitScore("quiz-game", { score: score });
+        console.log("leaderboard updated", result.leaderboard);
+      } catch (err) {
+        console.error("Não foi possível enviar o score", err);
+      }
+    };
+
+    if (showResult) updateRankig();
+  }, [showResult, score]);
 
   if (!gameStarted) {
     return (
       <div className="flex flex-col items-center justify-center gap-8">
         <div className="text-center space-y-4">
           <h2 className="text-4xl font-bold">Quiz Nostálgico</h2>
-          <p className="text-xl text-muted-foreground">Teste seus conhecimentos sobre os anos 50-70!</p>
-          <p className="text-lg">20 perguntas aleatórias sobre cultura, novelas e culinária</p>
+          <p className="text-xl text-muted-foreground">
+            Teste seus conhecimentos sobre os anos 50-70!
+          </p>
+          <p className="text-lg">
+            20 perguntas aleatórias sobre cultura, novelas e culinária
+          </p>
         </div>
         <Button onClick={startGame} size="lg" className="text-xl px-8 py-6">
           Começar Quiz
         </Button>
       </div>
-    )
+    );
   }
 
   if (showResult) {
-    const percentage = (score / questions.length) * 100
+    const percentage = (score / questions.length) * 100;
     return (
       <div className="flex flex-col items-center justify-center gap-8">
         <div className="text-center space-y-4">
@@ -1151,21 +1550,21 @@ export function QuizGame() {
             {percentage >= 80
               ? "Excelente! Você é um expert!"
               : percentage >= 60
-                ? "Muito bom! Você manda bem!"
-                : percentage >= 40
-                  ? "Bom trabalho! Continue estudando!"
-                  : "Não desanime! Tente novamente!"}
+              ? "Muito bom! Você manda bem!"
+              : percentage >= 40
+              ? "Bom trabalho! Continue estudando!"
+              : "Não desanime! Tente novamente!"}
           </p>
         </div>
         <Button onClick={startGame} size="lg" className="text-xl px-8 py-6">
           Jogar Novamente
         </Button>
       </div>
-    )
+    );
   }
 
-  const currentQ = questions[currentQuestion]
-  const progress = ((currentQuestion + 1) / questions.length) * 100
+  const currentQ = questions[currentQuestion];
+  const progress = ((currentQuestion + 1) / questions.length) * 100;
 
   return (
     <div className="w-full max-w-4xl mx-auto space-y-6">
@@ -1182,7 +1581,9 @@ export function QuizGame() {
       <Card className="p-8">
         <div className="space-y-6">
           <div className="text-center space-y-2">
-            <span className="text-sm font-medium text-primary">{currentQ.category}</span>
+            <span className="text-sm font-medium text-primary">
+              {currentQ.category}
+            </span>
             <h3 className="text-2xl font-bold">{currentQ.question}</h3>
           </div>
 
@@ -1196,9 +1597,21 @@ export function QuizGame() {
                   h-auto min-h-[80px] text-lg p-6 text-white
                   ${getButtonColor(index)}
                   ${getButtonHoverColor(index)}
-                  ${selectedAnswer === index && index === currentQ.correctAnswer ? "ring-4 ring-green-300" : ""}
-                  ${selectedAnswer === index && index !== currentQ.correctAnswer ? "ring-4 ring-red-300" : ""}
-                  ${selectedAnswer !== null && index === currentQ.correctAnswer ? "ring-4 ring-green-300" : ""}
+                  ${
+                    selectedAnswer === index && index === currentQ.correctAnswer
+                      ? "ring-4 ring-green-300"
+                      : ""
+                  }
+                  ${
+                    selectedAnswer === index && index !== currentQ.correctAnswer
+                      ? "ring-4 ring-red-300"
+                      : ""
+                  }
+                  ${
+                    selectedAnswer !== null && index === currentQ.correctAnswer
+                      ? "ring-4 ring-green-300"
+                      : ""
+                  }
                 `}
               >
                 {option}
@@ -1208,13 +1621,19 @@ export function QuizGame() {
 
           {selectedAnswer !== null && (
             <div className="text-center">
-              <Button onClick={handleNextQuestion} size="lg" className="text-xl px-8">
-                {currentQuestion < questions.length - 1 ? "Próxima Pergunta" : "Ver Resultado"}
+              <Button
+                onClick={handleNextQuestion}
+                size="lg"
+                className="text-xl px-8"
+              >
+                {currentQuestion < questions.length - 1
+                  ? "Próxima Pergunta"
+                  : "Ver Resultado"}
               </Button>
             </div>
           )}
         </div>
       </Card>
     </div>
-  )
+  );
 }

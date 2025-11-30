@@ -1,7 +1,9 @@
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { ArrowLeft } from "lucide-react"
-import { SlidingPuzzle } from "@/components/jogos/quebra-cabeca"
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { ArrowLeft } from "lucide-react";
+import { SlidingPuzzle } from "@/components/jogos/quebra-cabeca";
+import { GameSlugEnum } from "@/lib/utils";
+import Leaderboard from "@/components/Leaderboard";
 
 export default function PuzzlePage() {
   return (
@@ -14,7 +16,13 @@ export default function PuzzlePage() {
           </Link>
         </Button>
         <SlidingPuzzle />
+        <Leaderboard
+          gameSlug={GameSlugEnum.PUZZLE}
+          reverse
+          limit={10}
+          refreshInterval={15000}
+        />
       </div>
     </main>
-  )
+  );
 }
